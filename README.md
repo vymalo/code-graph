@@ -73,6 +73,106 @@ With CodeGraph Analyzer, you can:
 - **Document Automatically**: Generate architecture diagrams that span language boundaries
 - **Ensure Architectural Compliance**: Verify cross-language dependencies adhere to your design principles
 
+## 🧠 The Power of Neo4j MCP: Natural Language → Code Understanding
+
+The true breakthrough of CodeGraph isn't just in what languages it parses, but in how it enables AI to **truly understand your code** through the Model Context Protocol (MCP) integration with Neo4j.
+
+### How It Works: The Neural Bridge Between Human, AI, and Code
+
+1. **Natural Language → Cypher Translation**: When you ask your AI assistant a question about your codebase ("How does the login system work?"), the Neo4j MCP tools automatically translate this into optimized Cypher queries.
+
+2. **Knowledge Graph Traversal**: These queries intelligently navigate the comprehensive code graph that CodeGraph has built, finding exactly the code relationships that answer your question.
+
+3. **Contextual Understanding**: The AI receives the precise code context it needs - not just individual files, but the actual relationships, dependencies, and structures that connect them.
+
+4. **Intelligent Response**: With this deep structural understanding, the AI can provide accurate, contextualized answers and generate code that respects your existing architecture.
+
+### Why This Matters: Unprecedented AI Capabilities
+
+- **Beyond Text Understanding**: AI no longer just reads code as text - it sees the actual structure and relationships between components
+  
+- **True Code Comprehension**: AI assistants can "see" how your Python backend connects to your React frontend, how data flows through your system, and what would break if you changed a specific function
+
+- **Architectural Awareness**: Generate code that respects your existing patterns and integrates properly with your architecture, without breaking hidden dependencies
+
+- **Intelligent Refactoring**: AI can confidently recommend refactoring across language boundaries, understanding the full impact of changes
+
+- **Complexity Navigation**: Handle questions about massive codebases no human could fully keep in their head ("Show me all places where user data is accessed across our entire stack")
+
+### Example Queries That Become Possible
+
+```
+"Show me all React components that fetch data from our Python API endpoints"
+
+"Which SQL queries modify the user table and what services call them?"
+
+"How does data flow from our frontend form to the database?"
+
+"What would break if I changed the return type of this C++ function?"
+
+"Generate a new endpoint that follows our existing API patterns"
+```
+
+Each of these questions is automatically translated to precise Cypher queries, enabling your AI assistant to provide accurate, contextual responses based on your actual codebase architecture - not just guesswork.
+
+## 🔄 Neo4j MCP Integration: The Technical Details
+
+### The Complete AI-Codebase Intelligence Stack
+
+CodeGraph Analyzer works together with two critical MCP components to create a complete code understanding system:
+- **GitHub Repository**: [https://github.com/neo4j-contrib/mcp-neo4j](https://github.com/neo4j-contrib/mcp-neo4j)
+
+1. **code-analyzer-mcp**: This MCP server provides AI assistants with the ability to:
+   - Trigger codebase analysis on demand
+   - Watch for code changes to keep the knowledge graph updated
+   - Customize analysis parameters without requiring technical knowledge
+
+2. **github.com/neo4j-contrib/mcp-neo4j**: This powerful MCP server is the bridge between natural language and code knowledge, providing:
+   - **read-neo4j-cypher**: Translates natural questions into Cypher queries that extract precisely the right information
+   - **write-neo4j-cypher**: Enables AI to update the knowledge graph as needed
+   - **get-neo4j-schema**: Allows AI to understand the structure of your code graph
+
+### Simplified Setup with Integrated Configuration
+
+The CodeGraph setup package includes pre-configured MCP settings for both servers, enabling seamless integration with AI assistants. A typical configuration looks like:
+
+```json
+{
+  "mcpServers": {
+    "github.com/neo4j-contrib/mcp-neo4j": {
+      "command": "mcp-neo4j-cypher",
+      "args": [
+        "--db-url",
+        "bolt://localhost:7687?database=codegraph",
+        "--username",
+        "neo4j",
+        "--password",
+        "test1234"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "read-neo4j-cypher",
+        "write-neo4j-cypher",
+        "get-neo4j-schema"
+      ]
+    },
+    "code-analyzer-mcp": {
+      "command": "node",
+      "args": [
+        "c:/code/amcp/mcp/dist/index.js"
+      ],
+      "cwd": "c:/code/amcp/mcp",
+      "disabled": false,
+      "alwaysAllow": [
+        "run_analyzer",
+        "start_watcher",
+        "stop_watcher"
+      ]
+    }
+  }
+}
+```
+
 ## 🛠️ Installation and Prerequisites
 
 ### Prerequisites
