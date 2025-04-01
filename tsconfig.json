@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    /* Base Options: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    /* If NOT transpiling with TypeScript: */
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext", // Changed from ES2022 to NodeNext
+    "noEmit": false, // Allow emitting compiled files
+    /* If your code runs in the DOM: */
+    "lib": ["es2022", "dom", "dom.iterable"],
+    /* If your code doesn't run in the DOM: */
+    // "lib": ["es2022"],
+    /* If you're building for a library: */
+    // "declaration": true,
+    /* If you're building for a library in a monorepo: */
+    // "composite": true,
+    // "sourceMap": true,
+    // "declarationMap": true,
+    /* If you're using framework features: */
+    "jsx": "react-jsx", // Example for React
+    /* Project Structure */
+    "rootDir": "./src", // Specify root directory of source files
+    "outDir": "./dist", // Specify output directory for compiled files
+    "baseUrl": ".", // Base directory for non-relative module resolution
+    "paths": { // Optional: Define path mappings
+      "@/*": ["src/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"] // Include custom types
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"], // Include all relevant files in src
+  "exclude": ["node_modules", "dist", "**/__tests__/**", "**/*.spec.ts", "**/*.test.ts"] // Exclude build output, tests, etc.
+}
