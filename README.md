@@ -19,8 +19,6 @@
 
 **CodeGraph Analyzer** is a powerful static analysis engine that transforms your codebase into a rich, queryable Neo4j graph database. It now supports **multiple programming languages and frameworks**, creating a comprehensive "digital twin" of your entire software ecosystem. This enables unprecedented code comprehension, visualization, and AI-driven development workflows across complex, multi-language projects.
 
-[![CodeGraph Demo Video](https://img.shields.io/badge/Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/gb6IGsLK0wc)
-
 ## 🌟 What's New: Multi-Language Support
 
 CodeGraph Analyzer now provides robust support for a wide spectrum of programming languages and frameworks:
