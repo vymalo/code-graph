@@ -7,6 +7,8 @@ import {fileURLToPath} from "url";
 import path from "path";
 import fs from "fs";
 import {logger} from "./logger.js";
+import fsPromises from "fs/promises";
+import config from "./config/index.js";
 
 // Function to read and parse package.json
 function getPackageVersion(): string {
@@ -68,4 +70,6 @@ async function main() {
     }
 }
 
-main();
+main().finally(async () => {
+    await fsPromises.rmdir(config.tempDir);
+});
