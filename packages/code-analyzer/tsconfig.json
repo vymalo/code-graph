@@ -1,0 +1,53 @@
+{
+  "extends": [
+    "../../tsconfig.base.json"
+  ],
+  "compilerOptions": {
+    /* Base Options: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noEmit": false,
+    "outDir": "./dist", // Output directory for compiled JavaScript
+    "rootDir": "./src", // Root directory of source files
+    // Allow emitting compiled files
+    /* If your code runs in the DOM: */
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ],
+    /* If your code doesn't run in the DOM: */
+    // "lib": ["es2022"],
+    /* If you're building for a library: */
+    "declaration": true,
+    /* If you're building for a library in a monorepo: */
+    // "composite": true,
+    "sourceMap": true,
+    "declarationMap": true,
+    /* If you're using framework features: */
+    "jsx": "react-jsx",
+    // Example for React
+    /* Project Structure */
+    "baseUrl": "."
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx"
+  ],
+  // Include all relevant files in src
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/__tests__/**",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

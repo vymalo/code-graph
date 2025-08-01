@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "../../tsconfig.base.json"
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true, // Allows default imports from CommonJS modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references
+    "declaration": true, // Generate corresponding '.d.ts' file
+    "sourceMap": true, // Generate source maps for debugging
+    "outDir": "./dist", // Output directory for compiled JavaScript
+    "rootDir": "./src", // Root directory of source files
+  },
+  "include": ["src/**/*"], // Include all files in the src directory
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and dist directories
+}

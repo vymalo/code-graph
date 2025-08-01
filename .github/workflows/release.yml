@@ -1,0 +1,61 @@
+name: Npm Publish
+
+on:
+  release:
+    types: [ published ]
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:  # Manual trigger option
+
+# Add concurrency controls to prevent redundant builds
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Environment configuration
+env:
+  SUSTAINABILITY_METRICS: 'true'  # Enable carbon-aware computing
+
+jobs:
+
+  build:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23.x'
+          registry-url: https://registry.npmjs.org/
+          cache: 'yarn'  # Enable native Node module caching
+          cache-dependency-path: packages/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build packages
+        run: npm -ws run build
+
+      # Publishing with enhanced observability
+      - name: Publish packages
+        if: github.ref == 'refs/heads/main'
+        run: yarn changeset publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true # Enable NPM provenance

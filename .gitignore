@@ -5,6 +5,7 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json # Optional: Some teams commit this, others don't. Assuming ignore for now.
 yarn.lock # If using Yarn
+.yarn
 
 # TypeScript compilation output
 dist/
@@ -45,7 +46,9 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+.idea
 
 # Test Results & Coverage
 coverage/
 junit.xml
+

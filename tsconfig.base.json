@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // Target modern ECMAScript version
+    "module": "NodeNext", // Use Node.js's native ES module support
+    "moduleResolution": "NodeNext", // Resolve modules like Node.js
+    "strict": true, // Enable all strict type-checking options
+  }
+}
