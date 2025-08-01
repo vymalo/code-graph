@@ -2326,7 +2326,7 @@ __metadata:
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.24.5"
   peerDependencies:
-    "@vymalo/code-graph-analyzer": ^1.0.0-rc.1
+    "@vymalo/code-graph-analyzer": ^1.0.0-rc.2
   bin:
     vymalo-code-graph-mcp: dist/index.js
   languageName: unknown
