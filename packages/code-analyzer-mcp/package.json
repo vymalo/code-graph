@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "bin": {
     "vymalo-code-graph-mcp": "dist/index.js"
@@ -21,8 +22,16 @@
     "mcp",
     "code-analysis"
   ],
-  "author": "Roo",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vymalo/code-graph.git"
+  },
   "license": "MIT",
+  "author": {
+    "url": "https://github.com/stephane-segning",
+    "email": "selastlambou@gmail.com",
+    "name": "Stephane Segning"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
     "execa": "^8.0.1",

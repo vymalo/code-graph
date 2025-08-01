@@ -7,7 +7,8 @@
   "type": "module",
   "files": [
     "dist",
-    "python_parser.py"
+    "python_parser.py",
+    "LICENSE"
   ],
   "bin": {
     "vymalo-code-graph-analyzer": "dist/main.js"
@@ -33,8 +34,16 @@
     "static-analysis",
     "codegraph"
   ],
-  "author": "AI Assistant Roo",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vymalo/code-graph.git"
+  },
   "license": "MIT",
+  "author": {
+    "url": "https://github.com/stephane-segning",
+    "email": "selastlambou@gmail.com",
+    "name": "Stephane Segning"
+  },
   "dependencies": {
     "@alanse/mcp-neo4j-server": "^0.1.1",
     "@modelcontextprotocol/sdk": "^1.8.0",
