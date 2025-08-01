@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'node:path';
 import fs from 'node:fs';
+import fsPromises from "node:fs/promises";
 
 // Load environment variables from .env file
 dotenv.config({
@@ -11,6 +12,7 @@ dotenv.config({
  * Defines the structure of the application configuration.
  */
 interface Config {
+    defaultDir?: string;
     /** The logging level (e.g., 'debug', 'info', 'warn', 'error'). */
     logLevel: string;
     /** Neo4j database connection URL. */
@@ -31,9 +33,11 @@ interface Config {
     supportedExtensions: string[];
     /** Supported file extensions for parsing. */
     logFiles: boolean;
+    cleanTmp: () => Promise<void>;
 }
 
 const config: Config = {
+    defaultDir: process.env.DEFAULT_DIR ? path.resolve(process.env.DEFAULT_DIR) : undefined,
     logLevel: process.env.LOG_LEVEL || 'info',
     neo4jUrl: process.env.NEO4J_URL || 'bolt://localhost:7687',
     neo4jUser: process.env.NEO4J_USER || 'neo4j',
@@ -41,7 +45,7 @@ const config: Config = {
     neo4jDatabase: process.env.NEO4J_DATABASE || 'codegraph',
     logFiles: process.env.LOG_FILE === 'true',
     storageBatchSize: parseInt(process.env.STORAGE_BATCH_SIZE || '100', 10),
-    tempDir: path.resolve(process.cwd(), process.env.TEMP_DIR || fs.mkdtempSync('vymalo-code-graph')),
+    tempDir: path.resolve(process.env.TEMP_DIR || fs.mkdtempSync('vymalo-code-graph')),
     ignorePatterns: [
         '**/.idea/**',
         '**/node_modules/**',
@@ -84,13 +88,17 @@ const config: Config = {
         '.go',                        // Go
         '.sql'                        // SQL
     ],
-
+    cleanTmp,
 };
 
 // Basic validation (optional but recommended)
 if (isNaN(config.storageBatchSize) || config.storageBatchSize <= 0) {
     console.warn(`Invalid STORAGE_BATCH_SIZE found, defaulting to 100. Value: ${process.env.STORAGE_BATCH_SIZE}`);
     config.storageBatchSize = 100;
+}
+
+async function cleanTmp() {
+    await fsPromises.rmdir(config.tempDir).catch(console.error);
 }
 
 export default config;

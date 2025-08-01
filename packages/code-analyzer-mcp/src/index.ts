@@ -5,15 +5,14 @@ import {StdioServerTransport} from "@modelcontextprotocol/sdk/server/stdio.js";
 import {z} from "zod";
 import path from 'path';
 import {analyze, config} from '@vymalo/code-graph-analyzer';
-import fsPromises from "fs/promises";
 
 // Define the input schema for the run_analyzer tool - used for validation internally by SDK
 const RunAnalyzerInputSchema = z.object({
-    directory: z.string().describe("The absolute path to the project directory to analyze."),
-    extensions: z.string().nullable().optional().describe(`Comma-separated list of file extensions to include (default: ${config.supportedExtensions.join(',')})`),
+    directory: z.string().optional().nullable().describe("The absolute path to the project directory to analyze. No need to be configured when DEFAULT_DIR is configured."),
+    extensions: z.string().nullable().optional().describe(`Comma-separated list of file extensions to include (default: ${config.supportedExtensions.join(',')}).`),
     ignore: z.string().nullable().optional().describe("Comma-separated glob patterns to ignore (appends to default ignores)"),
-    updateSchema: z.boolean().default(false).optional().describe('Force update Neo4j schema (constraints/indexes) before analysis'),
-    resetDb: z.boolean().default(false).optional().describe('WARNING: Deletes ALL nodes and relationships before analysis'),
+    updateSchema: z.boolean().default(true).optional().describe('Force update Neo4j schema (constraints/indexes) before analysis'),
+    resetDb: z.boolean().default(true).optional().describe('WARNING: Deletes ALL nodes and relationships before analysis'),
 });
 
 // Create an MCP server
@@ -28,22 +27,19 @@ server.tool(
     // Provide the parameter shape, not the full schema object
     RunAnalyzerInputSchema.shape,
     // Let types be inferred for args and context, remove explicit McpResponse return type
-    async ({directory, extensions, updateSchema, ignore, resetDb}) => {
+    async ({directory = config.defaultDir, extensions, updateSchema, ignore, resetDb}) => {
         console.error(`[Code Analyzer] 'run_analyzer' tool called.`);
 
-        // Type assertion for args based on the shape provided above
-        const absoluteAnalysisDir = path.resolve(directory);
-
-        if (!directory || typeof directory !== 'string') {
-            console.error('[Code Analyzer] Invalid directory input provided.');
+        if (!directory) {
             return {
                 content: [{type: "text", text: 'Invalid directory input provided.'}],
                 isError: true
             };
         }
 
-        console.error(`[Code Analyzer] Target analysis directory (absolute): ${absoluteAnalysisDir}`);
-
+        // Type assertion for args based on the shape provided above
+        const absoluteAnalysisDir = path.resolve(directory);
+        
         try {
             await analyze(absoluteAnalysisDir, {
                 extensions: extensions ?? undefined,
@@ -55,7 +51,7 @@ server.tool(
                 neo4jDatabase: config.neo4jDatabase,
             })
 
-            await fsPromises.rmdir(config.tempDir).catch(console.error);
+            await config.cleanTmp();
 
             return {
                 content: [
@@ -65,14 +61,15 @@ server.tool(
                 ],
             };
         } catch (error) {
-            await fsPromises.rmdir(config.tempDir).catch(console.error);
-            
+            await config.cleanTmp();
+
             return {
                 content: [
                     {
                         type: "text", text: JSON.stringify(error)
                     }
                 ],
+                isError: true
             };
         }
     }
