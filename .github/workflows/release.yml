@@ -44,7 +44,7 @@ jobs:
           node-version: '23.x'
           registry-url: https://registry.npmjs.org/
           cache: 'yarn'  # Enable native Node module caching
-          cache-dependency-path: packages/yarn.lock
+          cache-dependency-path: yarn.lock
 
       - name: Install dependencies
         run: yarn install --immutable
