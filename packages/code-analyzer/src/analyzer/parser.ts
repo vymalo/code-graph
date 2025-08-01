@@ -31,13 +31,13 @@ const logger = createContextLogger('Parser');
  */
 export class Parser {
     private readonly tsProject: Project;
-    private pythonParser: PythonAstParser;
-    private cppParser: CCppParser;
-    private javaParser: JavaParser;
-    private goParser: GoParser;
-    private csharpParser: CSharpParser;
+    private readonly pythonParser: PythonAstParser;
+    private readonly cppParser: CCppParser;
+    private readonly javaParser: JavaParser;
+    private readonly goParser: GoParser;
+    private readonly csharpParser: CSharpParser;
     // private sqlParser: SqlParser; // Temporarily disabled
-    private tsResults: Map<string, SingleFileParseResult> = new Map(); // Store TS results in memory
+    private readonly tsResults: Map<string, SingleFileParseResult> = new Map(); // Store TS results in memory
 
     constructor() {
         // Initialize Project using the main tsconfig.json

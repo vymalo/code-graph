@@ -16,8 +16,8 @@ const logger = createContextLogger('AnalyzerService');
  * Orchestrates the code analysis process: scanning, parsing, resolving, and storing.
  */
 export class AnalyzerService {
-    private parser: Parser;
-    private storageManager: StorageManager;
+    private readonly parser: Parser;
+    private readonly storageManager: StorageManager;
     private readonly neo4jClient: Neo4jClient;
 
     constructor() {
