@@ -23,7 +23,6 @@ import {parseImports} from './parsers/import-parser.js'; // Add import parser
 import {createContextLogger} from '../utils/logger.js';
 import config from '../config/index.js';
 import {generateEntityId, generateInstanceId} from './parser-utils.js';
-import ts from 'typescript';
 
 const logger = createContextLogger('Parser');
 
@@ -305,7 +304,8 @@ export class Parser {
                 kind: 'File',
                 name: path.basename(filePath),
                 filePath: filePath,
-                language: sourceFile.getLanguageVariant() === ts.LanguageVariant.JSX ? 'TSX' : 'TypeScript', // Basic language detection
+                // ts.LanguageVariant.JSX = 1
+                language: sourceFile.getLanguageVariant() === 1 ? 'TSX' : 'TypeScript', // Basic language detection
                 startLine: 1,
                 endLine: sourceFile.getEndLineNumber(),
                 startColumn: 0,
@@ -375,7 +375,8 @@ export class Parser {
 function ensureTsConfig(project: Project): void {
     const currentSettings = project.compilerOptions.get();
     if (!currentSettings.jsx) {
-        project.compilerOptions.set({jsx: ts.JsxEmit.React});
+        // ts.JsxEmit.React = 2
+        project.compilerOptions.set({jsx: 2});
         logger.info('Set default JSX compiler option for ts-morph project.');
     }
 }
