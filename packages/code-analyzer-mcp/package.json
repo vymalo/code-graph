@@ -1,6 +1,6 @@
 {
   "name": "@vymalo/code-graph-mcp",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "MCP server to run the code analyzer CLI",
   "main": "dist/index.js",
   "type": "module",

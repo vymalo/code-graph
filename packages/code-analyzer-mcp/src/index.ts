@@ -5,6 +5,7 @@ import {StdioServerTransport} from "@modelcontextprotocol/sdk/server/stdio.js";
 import {z} from "zod";
 import path from 'path';
 import {analyze, config} from '@vymalo/code-graph-analyzer';
+import fsPromises from "fs/promises";
 
 // Define the input schema for the run_analyzer tool - used for validation internally by SDK
 const RunAnalyzerInputSchema = z.object({
@@ -54,6 +55,8 @@ server.tool(
                 neo4jDatabase: config.neo4jDatabase,
             })
 
+            await fsPromises.rmdir(config.tempDir).catch(console.error);
+
             return {
                 content: [
                     {
@@ -62,6 +65,8 @@ server.tool(
                 ],
             };
         } catch (error) {
+            await fsPromises.rmdir(config.tempDir).catch(console.error);
+            
             return {
                 content: [
                     {

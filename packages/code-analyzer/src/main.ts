@@ -71,5 +71,5 @@ async function main() {
 }
 
 main().finally(async () => {
-    await fsPromises.rmdir(config.tempDir);
+    await fsPromises.rmdir(config.tempDir).catch(logger.error);
 });
