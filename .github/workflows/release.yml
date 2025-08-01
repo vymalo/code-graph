@@ -54,5 +54,5 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: yarn changeset publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.MCP_NPM_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true # Enable NPM provenance

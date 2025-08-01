@@ -36,6 +36,6 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@vymalo/code-graph-analyzer": "*"
+    "@vymalo/code-graph-analyzer": "^1.0.0-rc.1"
   }
 }
