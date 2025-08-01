@@ -30,7 +30,7 @@ const logger = createContextLogger('Parser');
  * Orchestrates the parsing process for different languages.
  */
 export class Parser {
-    private tsProject: Project;
+    private readonly tsProject: Project;
     private pythonParser: PythonAstParser;
     private cppParser: CCppParser;
     private javaParser: JavaParser;
@@ -44,7 +44,7 @@ export class Parser {
         this.tsProject = new Project({
             tsConfigFilePath: 'tsconfig.json',
             // Optionally skip adding source files automatically if we add them manually later
-            // skipAddingFilesFromTsConfig: true,
+            skipAddingFilesFromTsConfig: true,
         });
         this.pythonParser = new PythonAstParser();
         this.cppParser = new CCppParser();

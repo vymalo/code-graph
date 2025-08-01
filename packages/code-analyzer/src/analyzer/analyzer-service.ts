@@ -18,7 +18,7 @@ const logger = createContextLogger('AnalyzerService');
 export class AnalyzerService {
     private parser: Parser;
     private storageManager: StorageManager;
-    private neo4jClient: Neo4jClient;
+    private readonly neo4jClient: Neo4jClient;
 
     constructor() {
         this.parser = new Parser();
