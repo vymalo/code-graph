@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {Command} from "commander";
 import {registerAnalyzeCommand} from "./cli/analyze.js";
 import {AppError} from "./utils/errors.js";

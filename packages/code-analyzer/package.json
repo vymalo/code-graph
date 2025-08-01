@@ -7,11 +7,10 @@
   "type": "module",
   "files": [
     "dist",
-    "python_parser.py",
-    "start.sh"
+    "python_parser.py"
   ],
   "bin": {
-    "vymalo-code-graph-analyzer": "start.sh"
+    "vymalo-code-graph-analyzer": "dist/main.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

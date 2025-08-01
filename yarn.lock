@@ -2309,7 +2309,7 @@ __metadata:
     vitest: "npm:^3.1.1"
     winston: "npm:^3.10.0"
   bin:
-    vymalo-code-graph-analyzer: start.sh
+    vymalo-code-graph-analyzer: dist/main.js
   languageName: unknown
   linkType: soft
 
@@ -2328,7 +2328,7 @@ __metadata:
   peerDependencies:
     "@vymalo/code-graph-analyzer": "*"
   bin:
-    vymalo-code-graph-mcp: start.sh
+    vymalo-code-graph-mcp: dist/index.js
   languageName: unknown
   linkType: soft
 

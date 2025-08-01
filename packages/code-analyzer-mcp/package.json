@@ -5,11 +5,10 @@
   "main": "dist/index.js",
   "type": "module",
   "files": [
-    "dist",
-    "start.sh"
+    "dist"
   ],
   "bin": {
-    "vymalo-code-graph-mcp": "start.sh"
+    "vymalo-code-graph-mcp": "dist/index.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

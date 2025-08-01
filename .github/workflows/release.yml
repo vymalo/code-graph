@@ -27,9 +27,6 @@ jobs:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages
     steps:
       - uses: actions/checkout@v4
         with:
