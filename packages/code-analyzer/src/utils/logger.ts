@@ -4,12 +4,6 @@ import config from '../config/index.js';
 
 const logsDir = path.resolve(process.cwd(), 'logs');
 
-// Ensure logs directory exists (optional, Winston can create files but not dirs)
-// import fs from 'fs';
-// if (!fs.existsSync(logsDir)) {
-//   fs.mkdirSync(logsDir, { recursive: true });
-// }
-
 const {combine, timestamp, printf, colorize, errors, json} = winston.format;
 
 // Custom format for console logging

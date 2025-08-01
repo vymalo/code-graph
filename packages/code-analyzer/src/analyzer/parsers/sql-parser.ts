@@ -18,7 +18,7 @@ import {
     SQLTableNode,
     SQLViewNode
 } from '../types.js';
-import {ensureTempDir, generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
+import {generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
 
 const logger = createContextLogger('SqlParser');
 
@@ -257,7 +257,6 @@ export class SqlParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[SqlParser] Starting SQL parsing for: ${file.name}`);
-        await ensureTempDir();
         const tempFilePath = getTempFilePath(file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');

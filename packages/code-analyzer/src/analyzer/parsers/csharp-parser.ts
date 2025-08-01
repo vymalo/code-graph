@@ -19,7 +19,7 @@ import {
     SingleFileParseResult,
     UsingDirectiveNode
 } from '../types.js';
-import {ensureTempDir, generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
+import {generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
 
 const logger = createContextLogger('CSharpParser');
 
@@ -370,7 +370,6 @@ export class CSharpParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[CSharpParser] Starting C# parsing for: ${file.name}`);
-        await ensureTempDir();
         const tempFilePath = getTempFilePath(file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');

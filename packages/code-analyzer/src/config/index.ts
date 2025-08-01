@@ -1,8 +1,11 @@
 import dotenv from 'dotenv';
-import path from 'path';
+import path from 'node:path';
+import fs from 'node:fs';
 
 // Load environment variables from .env file
-dotenv.config({path: path.resolve(process.cwd(), '.env')});
+dotenv.config({
+    path: path.resolve(process.cwd(), '.env')
+});
 
 /**
  * Defines the structure of the application configuration.
@@ -38,8 +41,9 @@ const config: Config = {
     neo4jDatabase: process.env.NEO4J_DATABASE || 'codegraph',
     logFiles: process.env.LOG_FILE === 'true',
     storageBatchSize: parseInt(process.env.STORAGE_BATCH_SIZE || '100', 10),
-    tempDir: path.resolve(process.cwd(), process.env.TEMP_DIR || './analysis-data/temp'),
+    tempDir: path.resolve(process.cwd(), process.env.TEMP_DIR || fs.mkdtempSync('vymalo-code-graph')),
     ignorePatterns: [
+        '**/.idea/**',
         '**/node_modules/**',
         '**/.git/**',
         '**/dist/**',
@@ -73,12 +77,12 @@ const config: Config = {
     supportedExtensions: [
         // Corrected array syntax
         '.ts', '.tsx', '.js', '.jsx', // TS/JS/JSX
-        '.py',                       // Python
-        '.c', '.h', '.cpp', '.hpp', '.cc', '.hh' // C/C++
-        , '.java',                   // Java
-        '.cs',                       // C#
-        '.go',                       // Go
-        '.sql'                       // SQL
+        '.py',                        // Python
+        '.c', '.h', '.cpp', '.hpp', '.cc', '.hh', // C/C++
+        '.java',                      // Java
+        '.cs',                        // C#
+        '.go',                        // Go
+        '.sql'                        // SQL
     ],
 
 };

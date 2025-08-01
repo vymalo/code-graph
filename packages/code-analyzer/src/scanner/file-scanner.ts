@@ -37,7 +37,7 @@ export class FileScanner {
      * Creates an instance of FileScanner.
      * @param targetDirectory - The absolute path to the directory to scan.
      * @param extensions - An array of file extensions to include (e.g., ['.ts', '.js']).
-     * @param ignorePatterns - An array of glob patterns to ignore.
+     * @param userIgnorePatterns
      */
     constructor(targetDirectory: string, extensions: string[], userIgnorePatterns: string[] = []) {
         if (!path.isAbsolute(targetDirectory)) {

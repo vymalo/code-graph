@@ -7,7 +7,7 @@ import {createContextLogger} from '../utils/logger.js';
 import {ParserError} from '../utils/errors.js';
 import {FileInfo} from '../scanner/file-scanner.js';
 import {InstanceCounter, SingleFileParseResult} from './types.js';
-import {ensureTempDir, generateInstanceId, getTempFilePath} from './parser-utils.js'; // Reusing utils
+import {generateInstanceId, getTempFilePath} from './parser-utils.js'; // Reusing utils
 
 const logger = createContextLogger('PythonAstParser');
 
@@ -21,7 +21,7 @@ interface PythonParseOutput extends SingleFileParseResult {
  * and translates the output into the common AstNode/RelationshipInfo format.
  */
 export class PythonAstParser {
-    private pythonExecutable: string; // Path to python executable (e.g., 'python' or 'python3')
+    private readonly pythonExecutable: string; // Path to python executable (e.g., 'python' or 'python3')
 
     constructor(pythonExecutable: string = 'python') { // Default to 'python'
         this.pythonExecutable = pythonExecutable;
@@ -36,8 +36,6 @@ export class PythonAstParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[PythonAstParser] Starting Python parsing for: ${file.name}`);
-        await ensureTempDir(); // Ensure temp directory exists
-
         const tempFilePath = getTempFilePath(file.path);
         const absoluteFilePath = path.resolve(file.path); // Ensure absolute path for the script
 

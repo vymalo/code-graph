@@ -1,6 +1,6 @@
 {
   "name": "@vymalo/code-graph-analyzer",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0-rc.4",
   "description": "Codebase analysis tool generating a Neo4j graph",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -16,13 +16,11 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
-    "dev": "ts-node ./src/main.ts",
+    "dev": "tsnd ./src/main.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:integration": "vitest run ./src/__tests__/integration",
     "test:unit": "vitest run ./src/**/*.spec.ts",
-    "lint": "eslint ./src/**/*.ts",
-    "format": "prettier --write \"./src/**/*.ts\"",
     "analyze": "npm run build && node dist/main.js analyze --update-schema"
   },
   "keywords": [
@@ -70,13 +68,10 @@
     "@types/commander": "^2.12.0",
     "@types/micromatch": "^4.0.9",
     "@types/node": "^20.19.9",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.1",
-    "prettier": "^3.6.2",
     "testcontainers": "^10.28.0",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   },

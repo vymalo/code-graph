@@ -41,11 +41,7 @@ export class Parser {
 
     constructor() {
         // Initialize Project using the main tsconfig.json
-        this.tsProject = new Project({
-            tsConfigFilePath: 'tsconfig.json',
-            // Optionally skip adding source files automatically if we add them manually later
-            skipAddingFilesFromTsConfig: true,
-        });
+        this.tsProject = new Project();
         this.pythonParser = new PythonAstParser();
         this.cppParser = new CCppParser();
         this.javaParser = new JavaParser();

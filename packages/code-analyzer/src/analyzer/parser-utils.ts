@@ -1,23 +1,10 @@
 import * as path from 'path';
 import * as crypto from 'crypto';
-import fsPromises from 'fs/promises';
 import * as fsSync from 'fs'; // Keep sync version for path resolution checks
-import {FileSystemError} from '../utils/errors.js';
 import {InstanceCounter} from './types.js';
 import config from '../config/index.js';
 
 const TEMP_DIR = config.tempDir; // Use tempDir from config
-
-/**
- * Ensures the temporary directory for intermediate results exists.
- */
-export async function ensureTempDir(): Promise<void> {
-    try {
-        await fsPromises.mkdir(TEMP_DIR, {recursive: true});
-    } catch (error: any) {
-        throw new FileSystemError(`Failed to create temporary directory: ${TEMP_DIR}`, {originalError: error});
-    }
-}
 
 /**
  * Generates a unique temporary file path based on the source file path hash.

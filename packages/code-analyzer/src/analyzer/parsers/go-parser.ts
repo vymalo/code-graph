@@ -18,7 +18,7 @@ import {
     RelationshipInfo,
     SingleFileParseResult
 } from '../types.js';
-import {ensureTempDir, generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
+import {generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
 
 const logger = createContextLogger('GoParser');
 
@@ -360,7 +360,6 @@ export class GoParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[GoParser] Starting Go parsing for: ${file.name}`);
-        await ensureTempDir();
         const tempFilePath = getTempFilePath(file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');

@@ -19,7 +19,7 @@ import {
     RelationshipInfo,
     SingleFileParseResult
 } from '../types.js'; // Added JavaEnumNode
-import {ensureTempDir, generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
+import {generateEntityId, generateInstanceId, getTempFilePath} from '../parser-utils.js';
 
 const logger = createContextLogger('JavaParser');
 
@@ -395,7 +395,6 @@ export class JavaParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[JavaParser] Starting Java parsing for: ${file.name}`);
-        await ensureTempDir();
         const tempFilePath = getTempFilePath(file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');

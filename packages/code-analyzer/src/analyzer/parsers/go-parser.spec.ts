@@ -16,13 +16,7 @@ async function parseFixture(fixturePath: string): Promise<SingleFileParseResult>
         name: path.basename(fixturePath),
         extension: path.extname(fixturePath),
     };
-
-    // Ensure temp dir exists (parser might rely on it)
-    try {
-        await fs.mkdir(config.tempDir, {recursive: true});
-    } catch (e) { /* Ignore if exists */
-    }
-
+    
     const tempFilePath = await parser.parseFile(fileInfo);
     const resultJson = await fs.readFile(tempFilePath, 'utf-8');
     await fs.unlink(tempFilePath); // Clean up temp file
