@@ -1,6 +1,6 @@
 {
   "name": "@vymalo/code-graph-analyzer",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "description": "Codebase analysis tool generating a Neo4j graph",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -49,7 +49,6 @@
     "chokidar": "^3.6.0",
     "chromadb-client": "^2.4.6",
     "commander": "^11.1.0",
-    "dotenv": "^16.6.1",
     "ignore": "^7.0.5",
     "neo4j-driver": "^5.28.1",
     "neo4j-driver-bolt-connection": "^5.28.1",

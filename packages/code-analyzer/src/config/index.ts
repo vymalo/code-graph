@@ -1,12 +1,6 @@
-import dotenv from 'dotenv';
 import path from 'node:path';
 import fs from 'node:fs';
 import fsPromises from "node:fs/promises";
-
-// Load environment variables from .env file
-dotenv.config({
-    path: path.resolve(process.cwd(), '.env')
-});
 
 /**
  * Defines the structure of the application configuration.

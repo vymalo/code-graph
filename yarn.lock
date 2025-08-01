@@ -2090,7 +2090,6 @@ __metadata:
     chromadb-client: "npm:^2.4.6"
     commander: "npm:^11.1.0"
     cross-env: "npm:^7.0.3"
-    dotenv: "npm:^16.6.1"
     ignore: "npm:^7.0.5"
     neo4j-driver: "npm:^5.28.1"
     neo4j-driver-bolt-connection: "npm:^5.28.1"
@@ -3174,13 +3173,6 @@ __metadata:
     tar-fs: "npm:~2.1.2"
     uuid: "npm:^10.0.0"
   checksum: 10c0/1ac6e1c0b589ea4878416ef334ae94d79da4261b3b7710a469cc27840667acbcf5ee22a4ec00a0ab61b03b670689f7605114ae9f021e5d2a6dfc22314d098b75
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.6.1":
-  version: 16.6.1
-  resolution: "dotenv@npm:16.6.1"
-  checksum: 10c0/15ce56608326ea0d1d9414a5c8ee6dcf0fffc79d2c16422b4ac2268e7e2d76ff5a572d37ffe747c377de12005f14b3cc22361e79fc7f1061cce81f77d2c973dc
   languageName: node
   linkType: hard
 

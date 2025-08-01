@@ -1,19 +1,9 @@
 # CodeGraph Analyzer: The Universal Code Intelligence Platform
 
-<div align="center">
-
-[![GitHub stars](https://img.shields.io/github/stars/ChrisRoyse/CodeGraph.svg?style=social&label=Star&maxAge=2592000)](https://github.com/ChrisRoyse/CodeGraph/stargazers/)
+[![GitHub stars](https://img.shields.io/github/stars/vymalo/code-graph.svg?style=social&label=Star&maxAge=2592000)](https://github.com/ChrisRoyse/code-graph/stargazers/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Neo4j Compatible](https://img.shields.io/badge/Neo4j-Compatible-brightgreen.svg)](https://neo4j.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-blue.svg)](https://www.typescriptlang.org/)
-
-**Revolutionize how you understand, visualize, and interact with your multi-language codebase**
-
-<a href="https://paypal.me/ChrisRoyseAI" target="_blank">
-  <img src="https://img.shields.io/badge/SUPPORT_THIS_PROJECT-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="Support This Project" width="300"/>
-</a>
-
-</div>
 
 ## 📋 Overview
 
@@ -137,35 +127,46 @@ The CodeGraph setup package includes pre-configured MCP settings for both server
 ```json
 {
   "mcpServers": {
-    "github.com/neo4j-contrib/mcp-neo4j": {
-      "command": "mcp-neo4j-cypher",
+    "neo4j": {
+      "command": "uvx",
       "args": [
-        "--db-url",
-        "bolt://localhost:7687?database=codegraph",
-        "--username",
-        "neo4j",
-        "--password",
-        "test1234"
+        "mcp-neo4j-cypher@0.3.0"
       ],
+      "env": {
+        "NEO4J_URI": "bolt://localhost:17687",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "bitnami1",
+        "NEO4J_DATABASE": "neo4j"
+      },
       "disabled": false,
       "autoApprove": [
-        "read-neo4j-cypher",
-        "write-neo4j-cypher",
-        "get-neo4j-schema"
+        "read_neo4j_cypher",
+        "get_neo4j_schema"
+      ],
+      "alwaysAllow": [
+        "get_neo4j_schema",
+        "read_neo4j_cypher"
+      ],
+      "disabledTools": [
+        "write_neo4j_cypher"
       ]
     },
-    "code-analyzer-mcp": {
-      "command": "node",
+    "code-analyzer": {
+      "command": "npx",
       "args": [
-        "c:/code/amcp/mcp/dist/index.js"
+        "@vymalo/code-graph-mcp"
       ],
-      "cwd": "c:/code/amcp/mcp",
       "disabled": false,
       "alwaysAllow": [
-        "run_analyzer",
-        "start_watcher",
-        "stop_watcher"
-      ]
+        "run_analyzer"
+      ],
+      "env": {
+        "DEFAULT_DIR": "<path-to-project>",
+        "NEO4J_URL": "bolt://localhost:17687",
+        "NEO4J_USER": "neo4j",
+        "NEO4J_PASSWORD": "bitnami1",
+        "NEO4J_DATABASE": "neo4j"
+      }
     }
   }
 }
@@ -181,58 +182,21 @@ The CodeGraph setup package includes pre-configured MCP settings for both server
 - **Node.js & npm**: Latest LTS version
 - **Python 3**: For Python code analysis (accessible in your PATH)
 
-### Installation Options
-
-#### Option 1: Easiest Setup (Recommended)
-1. **Download**: Get the pre-packaged zip file containing the analyzer and necessary configurations
-   
-   [📦 Download CodeGraph_Setup.zip](https://drive.google.com/file/d/1lc9qrupxXHaBzWlTFwcjClM8ygPsmH4Y/view?usp=sharing)
-
-2. **Unzip**: Extract the contents to `C:\code\amcp\` (or your preferred location)
-3. **Configure MCP**: Set up your MCP servers
-4. **Start Neo4j**: Ensure your Neo4j instance is running
-5. **Run Analysis**: Use the code-analyzer-mcp tool via your AI assistant
-
-#### Option 2: Manual Setup (from GitHub)
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/ChrisRoyse/CodeGraph.git amcp
-   cd amcp
-   ```
-
-2. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Compile TypeScript**:
-   ```bash
-   npm run build
-   ```
-
-4. **Configure Environment**: Create a `.env` file for Neo4j credentials
-5. **Configure MCP**: Set up your MCP servers
-6. **Start Neo4j**: Ensure your Neo4j instance is running
-7. **Run Analysis**: Use the CLI directly or the code-analyzer-mcp tool
-
 ## 📊 Usage (CLI)
 
 ```bash
-# Navigate to the project directory
-cd c:/code/amcp
-
 # Run the analyzer (using compiled code in dist/)
 # Replace <path/to/your/codebase> with the actual path
-node dist/index.js analyze <path/to/your/codebase> [options]
+npx @vymalo/code-graph-analyze analyze <path/to/your/codebase> [options]
 
 # Example: Analyze a multi-language project with specific extensions
-node dist/index.js analyze . -e .ts,.py,.java,.cs,.go,.sql,.jsx,.tsx --reset-db --update-schema
+npx @vymalo/code-graph-analyze analyze . -e .ts,.py,.java,.cs,.go,.sql,.jsx,.tsx --reset-db --update-schema
 
 # Example: Analyze a different project, ignoring node_modules and dist
-node dist/index.js analyze ../my-other-project --ignore "**/node_modules/**,**/dist/**"
+npx @vymalo/code-graph-analyze analyze ../my-other-project --ignore "**/node_modules/**,**/dist/**"
 ```
 
-### Options:
+### Option:
 - `<directory>`: Required: Path to the directory to analyze
 - `-e, --extensions <exts>`: Comma-separated file extensions (default now includes all supported languages)
 - `-i, --ignore <patterns>`: Comma-separated glob patterns to ignore
@@ -271,7 +235,7 @@ This is an open-source project under the MIT License.
   <h2>⭐ SUPPORT CODEGRAPH ⭐</h2>
   <p><b>Help fund continued development and new features!</b></p>
   
-  <a href="https://paypal.me/ChrisRoyseAI" target="_blank">
+  <a href="https://paypal.me/ssegning" target="_blank">
     <img src="https://img.shields.io/badge/DONATE_NOW-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="Donate Now" width="300"/>
   </a>
   
@@ -279,7 +243,7 @@ This is an open-source project under the MIT License.
   <p>CodeGraph is maintained by a single developer<br>Every donation directly helps improve the tool</p>
 </div>
 
-Contributions (bug reports, feature requests, pull requests) are welcome on the [GitHub Repository](https://github.com/ChrisRoyse/CodeGraph).
+Contributions (bug reports, feature requests, pull requests) are welcome on the [GitHub Repository](https://github.com/vymalo/code-graph).
 
 ---
 
