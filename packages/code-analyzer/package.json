@@ -1,6 +1,6 @@
 {
   "name": "@vymalo/code-graph-analyzer",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0-rc.7",
   "description": "Codebase analysis tool generating a Neo4j graph",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
