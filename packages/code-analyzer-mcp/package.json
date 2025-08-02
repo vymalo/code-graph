@@ -1,6 +1,6 @@
 {
   "name": "@vymalo/code-graph-mcp",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "description": "MCP server to run the code analyzer CLI",
   "main": "dist/index.js",
   "type": "module",
@@ -15,7 +15,6 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "inspector": "DANGEROUSLY_OMIT_AUTH=true mcp-inspector -- node ./build/main.js --debug"
   },
   "keywords": [

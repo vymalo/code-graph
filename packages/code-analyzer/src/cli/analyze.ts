@@ -5,6 +5,10 @@ import {Neo4jClient} from '../database/neo4j-client.js';
 import {SchemaManager} from '../database/schema.js'; // Assuming schema.ts will be created
 import config from '../config/index.js';
 import * as process from "node:process";
+import fs from "fs-extra";
+import path from "node:path";
+import os from "node:os";
+import fsPromises from "node:fs/promises";
 
 const logger = createContextLogger('AnalyzeCmd');
 
@@ -64,8 +68,13 @@ export async function analyze(directory: string, options: AnalyzeOptions) {
         database: options.neo4jDatabase,
     });
     let connected = false;
+    let error = undefined;
+    let tempDirPath: string | undefined = undefined;
 
     try {
+        // 0. Temp
+        tempDirPath = await fs.mkdtemp(path.join(os.tmpdir(), 'vymalo-code-graph-'));
+        
         // 1. Initialize Neo4j Connection
         await neo4jClient.initializeDriver('Analyzer'); // Use initializeDriver
         connected = true;
@@ -94,12 +103,15 @@ export async function analyze(directory: string, options: AnalyzeOptions) {
 
         // 3. Run Analysis
         // AnalyzerService now creates its own Neo4jClient
-        const analyzerService = new AnalyzerService();
+        const analyzerService = new AnalyzerService(tempDirPath);
         logger.info(`Starting analysis of directory: ${absoluteDirPath}`);
         // Use the simplified analyze method
         await analyzerService.analyze(absoluteDirPath);
 
         logger.info('Analysis command finished successfully.');
+    } catch (e) {
+        logger.error('Analysis command failed successfully.');
+        error = e;
     } finally {
         // 4. Close Neo4j Connection
         if (connected) {
@@ -107,6 +119,13 @@ export async function analyze(directory: string, options: AnalyzeOptions) {
             await neo4jClient.closeDriver('Analyzer'); // Use closeDriver
             logger.info('Neo4j connection closed.');
         }
+        
+        if (tempDirPath) {
+            await fsPromises.rmdir(tempDirPath).catch(console.error);
+        }
     }
 
+    if (error) {
+        throw error;
+    }
 }

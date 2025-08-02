@@ -384,7 +384,7 @@ class JavaAstVisitor {
 export class JavaParser {
     private parser: Parser;
 
-    constructor() {
+    constructor(private readonly tempDir: string) {
         this.parser = new Parser();
         this.parser.setLanguage(Java as any); // Cast to any to bypass type conflict
         logger.debug('Java Tree-sitter Parser initialized');
@@ -395,7 +395,7 @@ export class JavaParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[JavaParser] Starting Java parsing for: ${file.name}`);
-        const tempFilePath = getTempFilePath(file.path);
+        const tempFilePath = await getTempFilePath(this.tempDir, file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');
 

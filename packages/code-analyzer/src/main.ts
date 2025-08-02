@@ -70,6 +70,4 @@ async function main() {
     }
 }
 
-main().finally(async () => {
-    await config.cleanTmp();
-});
+main();

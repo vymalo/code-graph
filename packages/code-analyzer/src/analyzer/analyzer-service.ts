@@ -20,8 +20,8 @@ export class AnalyzerService {
     private readonly storageManager: StorageManager;
     private readonly neo4jClient: Neo4jClient;
 
-    constructor() {
-        this.parser = new Parser();
+    constructor(tempDir: string) {
+        this.parser = new Parser(tempDir);
         // Instantiate Neo4jClient without overrides to use config defaults
         this.neo4jClient = new Neo4jClient();
         // Pass the client instance to StorageManager

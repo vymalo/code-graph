@@ -322,7 +322,7 @@ class CCppAstVisitor {
 export class CCppParser {
     private parser: Parser;
 
-    constructor() {
+    constructor(private readonly tempDir: string) {
         this.parser = new Parser();
         logger.debug('C/C++ Tree-sitter Parser initialized');
     }
@@ -334,7 +334,7 @@ export class CCppParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[CCppParser] Starting C/C++ parsing for: ${file.name}`);
-        const tempFilePath = getTempFilePath(file.path);
+        const tempFilePath = await getTempFilePath(this.tempDir, file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');
 

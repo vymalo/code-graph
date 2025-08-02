@@ -52,8 +52,6 @@ server.tool(
                 neo4jDatabase: config.neo4jDatabase,
             })
 
-            await config.cleanTmp();
-
             return {
                 content: [
                     {
@@ -62,8 +60,6 @@ server.tool(
                 ],
             };
         } catch (error) {
-            await config.cleanTmp();
-
             return {
                 content: [
                     {

@@ -349,7 +349,7 @@ class GoAstVisitor {
 export class GoParser {
     private parser: Parser;
 
-    constructor() {
+    constructor(private readonly tempDir: string) {
         this.parser = new Parser();
         this.parser.setLanguage(Go as any); // Cast to any to bypass type conflict
         logger.debug('Go Tree-sitter Parser initialized');
@@ -360,7 +360,7 @@ export class GoParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[GoParser] Starting Go parsing for: ${file.name}`);
-        const tempFilePath = getTempFilePath(file.path);
+        const tempFilePath = await getTempFilePath(this.tempDir, file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');
 

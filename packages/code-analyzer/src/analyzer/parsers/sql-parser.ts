@@ -236,7 +236,7 @@ class SqlAstVisitor {
 export class SqlParser {
     private parser: Parser;
 
-    constructor() {
+    constructor(private readonly tempDir: string) {
         this.parser = new Parser();
         try {
             // Use the named import 'language' aliased as SQL
@@ -257,7 +257,7 @@ export class SqlParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[SqlParser] Starting SQL parsing for: ${file.name}`);
-        const tempFilePath = getTempFilePath(file.path);
+        const tempFilePath = await getTempFilePath(this.tempDir, file.path);
         const absoluteFilePath = path.resolve(file.path);
         const normalizedFilePath = absoluteFilePath.replace(/\\/g, '/');
 

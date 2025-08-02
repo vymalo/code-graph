@@ -23,7 +23,10 @@ interface PythonParseOutput extends SingleFileParseResult {
 export class PythonAstParser {
     private readonly pythonExecutable: string; // Path to python executable (e.g., 'python' or 'python3')
 
-    constructor(pythonExecutable: string = 'python') { // Default to 'python'
+    constructor(
+        private readonly tempDir: string,
+        pythonExecutable: string = 'python',
+    ) { // Default to 'python'
         this.pythonExecutable = pythonExecutable;
         logger.debug(`Python AST Parser initialized with executable: ${this.pythonExecutable}`);
     }
@@ -36,7 +39,7 @@ export class PythonAstParser {
      */
     async parseFile(file: FileInfo): Promise<string> {
         logger.info(`[PythonAstParser] Starting Python parsing for: ${file.name}`);
-        const tempFilePath = getTempFilePath(file.path);
+        const tempFilePath = await getTempFilePath(this.tempDir, file.path);
         const absoluteFilePath = path.resolve(file.path); // Ensure absolute path for the script
 
         try {

@@ -4,18 +4,17 @@ import * as fsSync from 'fs'; // Keep sync version for path resolution checks
 import {InstanceCounter} from './types.js';
 import config from '../config/index.js';
 
-const TEMP_DIR = config.tempDir; // Use tempDir from config
-
 /**
  * Generates a unique temporary file path based on the source file path hash.
+ * @param tempDir
  * @param sourceFilePath - The absolute path of the source file.
  * @returns The absolute path for the temporary JSON file.
  */
-export function getTempFilePath(sourceFilePath: string): string {
+export async function getTempFilePath(tempDir: string, sourceFilePath: string): Promise<string> {
     // Normalize path before hashing for consistency
     const normalizedPath = sourceFilePath.replace(/\\/g, '/');
     const hash = crypto.createHash('sha256').update(normalizedPath).digest('hex');
-    return path.join(TEMP_DIR, `${hash}.json`);
+    return path.join(tempDir, `${hash}.json`);
 }
 
 /**

@@ -39,14 +39,14 @@ export class Parser {
     // private sqlParser: SqlParser; // Temporarily disabled
     private readonly tsResults: Map<string, SingleFileParseResult> = new Map(); // Store TS results in memory
 
-    constructor() {
+    constructor(private readonly tempDir: string) {
         // Initialize Project using the main tsconfig.json
         this.tsProject = new Project();
-        this.pythonParser = new PythonAstParser();
-        this.cppParser = new CCppParser();
-        this.javaParser = new JavaParser();
-        this.goParser = new GoParser();
-        this.csharpParser = new CSharpParser();
+        this.pythonParser = new PythonAstParser(tempDir);
+        this.cppParser = new CCppParser(tempDir);
+        this.javaParser = new JavaParser(tempDir);
+        this.goParser = new GoParser(tempDir);
+        this.csharpParser = new CSharpParser(tempDir);
         // this.sqlParser = new SqlParser(); // Temporarily disabled
         // Removed tsParser instantiation
         logger.info('Parser initialized (SQL parser temporarily disabled).');
@@ -148,17 +148,16 @@ export class Parser {
         logger.info('Starting collection of Pass 1 results (JSON + TS)...');
         const nodeMap = new Map<string, AstNode>(); // Use Map for nodes
         const relationshipMap = new Map<string, RelationshipInfo>(); // Use Map for relationships
-        const tempDir = config.tempDir;
 
         try {
-            const files = await fs.readdir(tempDir);
+            const files = await fs.readdir(this.tempDir);
             const jsonFiles = files.filter(f => f.endsWith('.json'));
             logger.info(`Found ${jsonFiles.length} temporary JSON files to process.`);
             let processedJsonCount = 0;
 
             for (const file of jsonFiles) {
                 processedJsonCount++;
-                const filePath = path.join(tempDir, file);
+                const filePath = path.join(this.tempDir, file);
                 // logger.debug(`[collectResults] Processing JSON file ${processedJsonCount}/${jsonFiles.length}: ${file}`); // Removed log
                 try {
                     const content = await fs.readFile(filePath, 'utf-8');
@@ -220,7 +219,7 @@ export class Parser {
             // --- REMOVED Directory Node Generation Logic ---
 
         } catch (error: any) {
-            logger.error(`Error reading temp directory ${tempDir}: ${error.message}`);
+            logger.error(`Error reading temp directory ${this.tempDir}: ${error.message}`);
         }
 
         // Add results from in-memory TS parsing
