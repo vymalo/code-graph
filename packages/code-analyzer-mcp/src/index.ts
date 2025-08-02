@@ -39,13 +39,14 @@ server.tool(
 
         // Type assertion for args based on the shape provided above
         const absoluteAnalysisDir = path.resolve(directory);
-        
+
         try {
             await analyze(absoluteAnalysisDir, {
                 extensions: extensions ?? undefined,
-                updateSchema,
                 ignore: ignore ?? undefined,
-                resetDb,
+                updateSchema: updateSchema ?? false,
+                resetDb: resetDb ?? false,
+                neo4jUrl: config.neo4jUrl,
                 neo4jUser: config.neo4jUser,
                 neo4jPassword: config.neo4jPassword,
                 neo4jDatabase: config.neo4jDatabase,

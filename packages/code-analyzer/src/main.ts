@@ -33,7 +33,7 @@ async function main() {
     const program = new Command();
 
     program
-        .name('code-analyzer-cli') // Replace with your actual CLI name
+        .name('vymalo-code-graph-analyzer') // Replace with your actual CLI name
         .version(getPackageVersion(), '-v, --version', 'Output the current version')
         .description('A CLI tool to analyze codebases and store insights in Neo4j.');
 
